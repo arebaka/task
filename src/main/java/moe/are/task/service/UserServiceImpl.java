@@ -2,7 +2,6 @@ package moe.are.task.service;
 
 import moe.are.task.dao.UserDAO;
 import moe.are.task.model.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

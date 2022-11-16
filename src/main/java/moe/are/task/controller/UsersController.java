@@ -22,7 +22,6 @@ public class UsersController {
 	public String listAllUsers(ModelMap model) {
 		List<User> users = userService.listAllUsers();
 		model.addAttribute("users", users);
-
 		return "users";
 	}
 
@@ -30,7 +29,6 @@ public class UsersController {
 	public String getUserByLogin(ModelMap model, @PathVariable("login") String login) {
 		User user = userService.getUserByLogin(login);
 		model.addAttribute("user", user);
-
 		return "user";
 	}
 }

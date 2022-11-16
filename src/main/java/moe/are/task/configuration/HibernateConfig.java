@@ -37,7 +37,7 @@ public class HibernateConfig {
 		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driver_class_name"));
 		dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
 		dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-		dataSource.setUsername(environment.getRequiredProperty("jdbc.password"));
+		dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
 		return dataSource;
 	}
 
@@ -53,8 +53,6 @@ public class HibernateConfig {
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-		transactionManager.setSessionFactory(sessionFactory);
-		return transactionManager;
+		return new HibernateTransactionManager(sessionFactory);
 	}
 }
