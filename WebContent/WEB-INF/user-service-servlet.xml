@@ -2,13 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/tx">
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans/
+       http://www.springframework.org/schema/web-services/
+       http://www.springframework.org/schema/context/">
 
     <context:component-scan base-package="moe.are.task" />
+    <sws:annotation-driven />
 
     <bean class="org.springframework.ws.server.endpoint.adapter.GenericMarshallingMethodEndpointAdapter">
         <property name="marshaller" ref="marshaller" />
@@ -17,7 +17,7 @@
 
     <bean id="marshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller"/>
 
-    <sws:dynamic-wsdl id="users" portTypeName="service" locationUri="/users" >
-        <sws:xsd location="/WEB-INF/users.xsd" />
+    <sws:dynamic-wsdl id="UserService" portTypeName="service" locationUri="/users" >
+        <sws:xsd location="WebContent/WEB-INF/xsd/UserService.xsd" />
     </sws:dynamic-wsdl>
 </beans>

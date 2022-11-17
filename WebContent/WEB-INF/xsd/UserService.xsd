@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://task.are.moe/UserService"
+           targetNamespace="http://task.are.moe/UserService"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="ResponseBase">
+        <xs:sequence>
+            <xs:element name="success" type="tns:Success" />
+            <xs:element name="errors" type="tns:Error" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Success">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="true" />
+            <xs:enumeration value="false" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Error">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="ListAllUsersRequest">
+        <xs:complexType />
+    </xs:element>
+    <xs:element name="ListAllUsersResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:ResponseBase">
+                    <xs:sequence>
+                        <xs:element name="result" type="tns:User" maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetUserByLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetUserByLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:ResponseBase">
+                    <xs:sequence>
+                        <xs:element name="result" type="tns:UserDetails" />
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RemoveUserByLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RemoveUserByLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:ResponseBase" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="data" type="tns:UserDetailsWithAuth" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AddUserResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:ResponseBase" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateUserByLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string" />
+                <xs:element name="data" type="tns:UserDetailsWithAuth" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="UpdateUserByLoginResponse">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:ResponseBase" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="User">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="login" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UserDetails">
+        <xs:complexContent>
+            <xs:extension base="tns:User">
+                <xs:sequence>
+                    <xs:element name="roles" type="tns:Role" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="Role">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:complexType name="UserDetailsWithAuth">
+        <xs:complexContent>
+            <xs:extension base="tns:UserDetails">
+                <xs:sequence>
+                    <xs:element name="password" type="xs:string" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
